@@ -1,5 +1,7 @@
 # WebRTC Test
 
+Live: https://ajaranbior.github.io/webrtc-test/
+
 A tiny static page to check whether peer-to-peer WebRTC works between two browsers (e.g. in different countries).
 
 - Pick a name, see everyone online (with country flag + timezone), click **Connect**.
