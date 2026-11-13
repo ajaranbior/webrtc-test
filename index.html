@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>WebRTC Test</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='14' fill='%232563eb'/%3E%3Ccircle cx='16' cy='16' r='5' fill='white'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- Join screen -->
+<main id="join" class="join">
+  <form id="join-form" class="card">
+    <h1>WebRTC Test</h1>
+    <p class="muted">Pick a name, then connect to anyone else who has this page open. Works peer-to-peer, so it's a good check for whether WebRTC works between two countries.</p>
+    <label for="name">Your name</label>
+    <input id="name" type="text" maxlength="24" autocomplete="nickname" placeholder="e.g. Alice (Berlin)" required>
+    <button class="primary" type="submit">Join</button>
+  </form>
+</main>
+
+<!-- Main app -->
+<div id="app" class="app" hidden>
+  <header class="topbar">
+    <div>
+      <strong>WebRTC Test</strong>
+      <span class="muted">· you are <span id="me-flag"></span> <b id="me-name"></b> <code id="me-id"></code></span>
+    </div>
+    <div class="topbar-right">
+      <span id="brokers" class="brokers" title="Signaling brokers (only used to find peers and exchange connection info)"></span>
+      <button id="change-name" class="ghost">Change name</button>
+    </div>
+  </header>
+
+  <div class="layout">
+    <aside class="card">
+      <h2>Online <span id="online-count" class="badge">0</span></h2>
+      <ul id="users" class="users"></ul>
+      <p id="users-empty" class="muted">Nobody else is here yet. Open this page on another device or send the link to someone.</p>
+
+      <details class="settings">
+        <summary>Network settings</summary>
+        <label class="check"><input id="force-relay" type="checkbox"> Force relay (TURN only)</label>
+        <p class="muted small">Forces all traffic through a TURN server. If this works but the normal mode doesn't, a firewall/NAT is blocking direct connections. Applies to new connections.</p>
+        <label for="ice-json">ICE servers (JSON)</label>
+        <textarea id="ice-json" rows="8" spellcheck="false"></textarea>
+        <div class="row">
+          <button id="ice-save" class="ghost">Save</button>
+          <button id="ice-reset" class="ghost">Reset</button>
+        </div>
+      </details>
+    </aside>
+
+    <section>
+      <div id="conns" class="conns"></div>
+      <p id="conns-empty" class="muted card">No connections yet. Press <b>Connect</b> next to a user.</p>
+
+      <details class="card log-card">
+        <summary>Debug log</summary>
+        <pre id="log" class="log"></pre>
+      </details>
+    </section>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/mqtt@5.10.1/dist/mqtt.min.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
